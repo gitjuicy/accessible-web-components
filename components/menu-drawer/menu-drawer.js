@@ -5,8 +5,6 @@
  * @extends HTMLElement
  * @description Creates a custom element that acts as a modal (following the W3C pattern) menu drawer in the top right corner of the screen.
  * @example See menu-drawer.liquid
- * 
- * @property {string} [propertyName] - A description of a property of this custom element.
  */
 
 customElements.define(

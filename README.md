@@ -11,4 +11,4 @@ It is likely the components will need some configuring when added to a new Shopi
 - [Theme Check](https://shopify.dev/docs/storefronts/themes/tools/theme-check) - *Shopify Liquid linter to ensure all Liquid code we write is up to date with current Shopify Liquid sytnax and best practices. Use this with the Shopify CLI, by running `shopify theme check`.*
 
 ## **APIS**
-- [Shopify Ajax API](https://shopify.dev/docs/api/ajax/reference/cart) - *Lightweight REST API endpoints for development of Shopify themes.*
+- [Shopify Ajax API](https://shopify.dev/docs/api/ajax) - *Lightweight REST API endpoints for development of Shopify themes.*
