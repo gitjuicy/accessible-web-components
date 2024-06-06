@@ -1,6 +1,13 @@
 # **Juicyorange Accessible HTML Web Component for Shopify**
 
-This is a respository for custom modular web components, in a take-what-you-need fashion.
+This is a respository for custom modular web components we use on Shopify.
+
+Because Shopify instances have a set architecture, these components can only work by manually moving the liquid files to some folder (such as `snippets/`) and the  javascript files to the `assets/` folder, and referencing it in the same template, i.e.
+
+```liquid
+<script type="text/javascript" src="{{ 'menu-drawer.js' | asset_url }}" async="async"></script>
+{% render 'menu-drawer' %}
+```
 
 It is likely the components will need some configuring when added to a new Shopify instance, but they are built with a shadow DOM and zero external dependencies (besides being on a theme hosted by Shopify, *not* a custom storefront) to minimze this.
 
