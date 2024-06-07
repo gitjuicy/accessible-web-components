@@ -1,0 +1,113 @@
+<template id="video-template" aria-hidden="true" style="display: none;">
+  <style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+    .video-wrapper {
+      max-width: 800px;
+      margin: auto;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      overflow: hidden;
+    }
+
+    .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-controls {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .video-controls button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #444;
+    }
+
+    .video-controls button:focus {
+      outline: 2px solid #000;
+    }
+
+    .video-controls input[type="range"] {
+      flex: 1;
+      margin: 0 10px;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+  <div class="video-wrapper">
+    <div class="video-container">
+      <figure>
+        <!-- IE9 will only use the specified poster image correctly if preload="none" is set; otherwise, it will take the first still of the video and display that instead. Tested and confirmed on 05/09/24 -->
+        <video id="video" src="" poster="" controls="true" muted="true" loop="true" preload="none">
+          Sorry, your browser does not support the HTML Video tag. Please try another browser to view this video.
+        </video>
+        <figcaption>
+         Lorem ipsum dolor sit amet, consectetur adip eget
+        </figcaption>
+      </figure>
+      <ul id="video-controls" class="video-controls" role="toolbar">
+        <li>
+          <button id="toggleplaypause" type="button" class="fa fa-play" aria-controls="video">
+            <span class="visually-hidden">Play</span>
+          </button>
+        </li>
+        <li>
+          <button id="stop" type="button" class="fa fa-stop" aria-controls="video">
+            <span class="visually-hidden">Stop</span>
+          </button>
+        </li>
+        <li>
+          <label for="progress" class="visually-hidden">
+            Seek for video progress
+          </label>
+          <input type="range" id="progress" name="progress" aria-controls="video" aria-valuetext="0 out of 128.58 seconds">
+        </li>
+        <li>
+          <button id="mute" type="button" class="fa fa-volume-up" aria-controls="video" aria-pressed="true">
+            <span class="visually-hidden">Mute</span>
+          </button>
+        </li>
+        <li>
+          <label for="volume" class="visually-hidden">
+            Volume slider
+          </label>
+          <input type="range" id="volume" name="volume" min="0" max="0" step=".1" aria-controls="video" aria-valuemin="0" aria-valuemax="1" aria-valuetext="50%"></li>
+        <li>
+          <button id="fullscreen" type="button" class="fa fa-desktop" aria-controls="video" aria-pressed="false">
+            <span class="visually-hidden">Mute</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<custom-video></custom-video>
