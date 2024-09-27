@@ -1,0 +1,16 @@
+<details-hover>
+  <details>
+    <summary>
+      <a href="#">
+        <span>Link</span>
+      </a>
+    </summary>
+    <ul tabindex="-1">
+      <li>
+        <a href="#" {% if childlink.current %} aria-current="page"{% endif %}>
+          Child Link
+        </a>
+      </li>
+    </ul>
+  </details>
+</details-hover>
