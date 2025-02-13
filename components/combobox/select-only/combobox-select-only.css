@@ -1,0 +1,83 @@
+.combo *,
+.combo *::before,
+.combo *::after {
+  box-sizing: border-box;
+}
+
+.combo {
+  position: relative;
+  background-color: white;
+}
+
+select-indicator {
+  position: absolute;
+  right: .7rem;
+  top: 55%;
+  transform: translate(0, -50%);
+  width: 12px;
+}
+
+select-indicator svg {
+  //fill: rgb(204, 204, 204);
+}
+
+combo-box.open select-indicator svg {
+  transform: rotate(180deg);
+}
+
+.combo-input {
+  position: relative;
+  border: 2px solid rgb(0 0 0 / 75%);
+  border-radius: 4px;
+  padding: 2px;
+  text-align: left;
+  width: 100%;
+}
+
+.open .combo-input {
+  border-radius: 4px 4px 0 0;
+}
+
+.combo-input:focus-visible {
+  outline: 3px solid #0067b8;
+  outline-offset: 2px;
+}
+
+.combo-menu {
+  border: 1px solid rgb(0 0 0 / 75%);
+  border-radius: 0 0 4px 4px;
+  display: none;
+  max-height: 300px;
+  overflow-y: scroll;
+  left: 0;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: white;
+}
+
+.open .combo-menu {
+  display: block;
+}
+
+.combo-option {
+  padding: 3px;
+}
+
+.combo-option:hover {
+  background-color: rgb(0 0 0 / 10%);
+}
+
+.combo-option.special {
+  color: red;
+}
+
+.combo-option.option-current {
+  outline: 3px solid #0067b8;
+  outline-offset: -2px;
+}
+
