@@ -1,0 +1,156 @@
+{{ 'section-full-width-image.css' | asset_url | stylesheet_tag }}
+
+{%- if section.settings.image_height == 'adapt' and section.settings.image != blank -%}
+  {%- style -%}
+    @media screen and (max-width: 749px) {
+      #FullWidthImage-{{ section.id }}: : before
+      , #FullWidthImage-{{ section.id }}
+      .full-width-image__media::before {
+        padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
+        content: '';
+        display: block;
+      }
+    }
+
+    @media screen and (min-width: 750px) {
+      #FullWidthImage-{{ section.id }}: : before
+      , #FullWidthImage-{{ section.id }}
+      .full-width-image__media::before {
+        padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
+        content: '';
+        display: block;
+      }
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+{%- liquid
+  assign full_width = '100vw'
+  assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+
+  if section.settings.image_behavior == 'ambient'
+    assign full_width = '120vw'
+    assign widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
+  endif
+
+  assign fetch_priority = 'auto'
+  if section.index == 1
+    assign fetch_priority = 'high'
+  endif
+
+  # Using custom alt text or falling back to image alt or empty if decorative
+  if section.settings.image != blank
+    if section.settings.custom_alt != blank
+      assign img_alt = section.settings.custom_alt
+    elsif section.settings.image.alt != blank
+      assign img_alt = section.settings.image.alt
+    elsif section.settings.is_decorative
+      assign img_alt = ''
+    else
+      assign img_alt = 'Full-width image'
+    endif
+  endif
+-%}
+
+<div
+  id="FullWidthImage-{{ section.id }}"
+  class="full-width-image full-width-image--{{ section.settings.image_height }}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} full-width-image--adapt{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+  role="{% if section.settings.is_decorative %}presentation{% else %}img{% endif %}"
+  {% if section.settings.is_decorative == false and img_alt != '' %}
+  aria-label="{{ img_alt }}"
+  {% endif %}>
+  {%- if section.settings.image != blank -%}
+    <div class="full-width-image__media media{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      {%- liquid
+        assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
+      -%}
+      {{
+        section.settings.image | image_url: width: 3840 | image_tag: width: section.settings.image.width, height: image_height, class: 'full-width-image__media-image', sizes: full_width, widths: widths, loading: 'eager', fetchpriority: fetch_priority, alt: img_alt, aria-hidden: section.settings.is_decorative
+      }}
+    </div>
+  {%- else -%}
+    <div class="full-width-image__media media placeholder" aria-hidden="true">
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Full-Width Image",
+    "tag": "section",
+    "class": "section",
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    },
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "Accessibility"
+      },
+      {
+        "type": "text",
+        "id": "custom_alt",
+        "label": "Alt text",
+        "info": "Describe the image for screen-reader users. Leave blank if image is purely decorative."
+      },
+      {
+        "type": "checkbox",
+        "id": "is_decorative",
+        "default": false,
+        "label": "Image is decorative only",
+        "info": "Check if this image is purely decorative and has no informational value. Screen readers will ignore it."
+      }, {
+        "type": "select",
+        "id": "image_height",
+        "options": [
+          {
+            "value": "adapt",
+            "label": "Adapt to image"
+          }, {
+            "value": "small",
+            "label": "Small"
+          }, {
+            "value": "medium",
+            "label": "Medium"
+          }, {
+            "value": "large",
+            "label": "Large"
+          }
+        ],
+        "default": "medium",
+        "label": "Image height"
+      }, {
+        "type": "select",
+        "id": "image_behavior",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          }, {
+            "value": "ambient",
+            "label": "Ambient"
+          }, {
+            "value": "fixed",
+            "label": "Fixed"
+          }, {
+            "value": "zoom-in",
+            "label": "Zoom in"
+          }
+        ],
+        "default": "none",
+        "label": "Image behavior"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Full-Width Image"
+      }
+    ]
+  }
+{% endschema %}
