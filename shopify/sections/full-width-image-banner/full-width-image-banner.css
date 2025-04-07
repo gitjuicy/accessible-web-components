@@ -1,0 +1,105 @@
+.full-width-image {
+  display: flex;
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.full-width-image--small {
+  height: 36rem;
+}
+
+.full-width-image--medium {
+  height: 44rem;
+}
+
+.full-width-image--large {
+  height: 50rem;
+}
+
+@media screen and (max-width: 749px) {
+  .full-width-image--small {
+    height: 28rem;
+  }
+
+  .full-width-image--medium {
+    height: 34rem;
+  }
+
+  .full-width-image--large {
+    height: 39rem;
+  }
+}
+
+.full-width-image--adapt,
+.full-width-image--adapt .full-width-image__media {
+  height: auto;
+}
+
+.full-width-image__media {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.full-width-image__media-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.full-width-image .placeholder-svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Animation styles */
+@media screen and (min-width: 750px) {
+  .animate--ambient.full-width-image__media {
+    animation: ambient 8s infinite;
+  }
+
+  @keyframes ambient {
+    0%,
+    100% {
+      transform: translateX(calc(-1 * var(--ambient-sliver-width)))
+        translateY(calc(-1 * var(--ambient-sliver-height)))
+        scale(calc(1 + var(--ambient-scale-extra)));
+    }
+    50% {
+      transform: translateX(0) translateY(0) scale(1);
+    }
+  }
+
+  .animate--ambient .full-width-image__media-image {
+    --ambient-sliver-width: 2rem;
+    --ambient-sliver-height: 2rem;
+    --ambient-scale-extra: 0.1;
+    width: calc(100% + var(--ambient-sliver-width) * 2);
+    height: calc(100% + var(--ambient-sliver-height) * 2);
+    top: calc(-1 * var(--ambient-sliver-height));
+    left: calc(-1 * var(--ambient-sliver-width));
+  }
+
+  .animate--fixed.full-width-image__media {
+    background-attachment: fixed;
+  }
+
+  .animate--zoom-in .full-width-image__media-image {
+    transition: transform 10s;
+  }
+
+  .animate--zoom-in:hover .full-width-image__media-image {
+    transform: scale(1.1);
+  }
+}
